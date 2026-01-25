@@ -4,6 +4,8 @@
 **Contexte :** Master 2 CHPS - Module Green Computing (Université de Perpignan)  
 **Encadrant :** M. Matthieu MARTEL
 
+📄 **[Lire le rapport complet du projet (PDF)](./Rapport_Green_Computing_Salma_BENSMAIL-2.pdf)**
+
 ## 📖 Vue d'ensemble
 Le Calcul Haute Performance (HPC) fait face à un défi critique : la consommation énergétique. Ce projet étudie le compromis entre **Précision Numérique** et **Efficacité Énergétique** en intégrant des algorithmes de compression avec perte (**ZFP**, **SZ3**) dans des solveurs d'algèbre linéaire standards (Gauss, Cholesky).
 
@@ -37,3 +39,4 @@ Pour ces tailles de matrices, le coût de calcul de la compression (*overhead*) 
 
 ---
 *Projet réalisé dans le cadre du cursus Master 2 CHPS (2025).*
+
