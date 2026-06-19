@@ -60,10 +60,5 @@ Ces résultats montrent que, pour les tailles testées, le coût de la compressi
 
 ## Conclusion
 
-La compression avec perte n’est pas toujours avantageuse dans ce contexte. Pour les tailles de matrices considérées, l’overhead lié à la compression reste important. L’approche devient plus pertinente lorsque les données à traiter augmentent et que la bande passante mémoire devient limitante.
-
-## Auteur
-
-**Salma Bensmail**  
-Master 2 CHPS — Calcul Haute Performance & Simulation
+La compression avec perte n’est pas toujours avantageuse dans ce contexte. Pour les tailles de matrices considérées, l’overhead lié à la compression reste important. L’approche devient plus pertinente lorsque les données à traiter augmentent et que la bande passante mémoire devient limitant
 
