@@ -1,42 +1,65 @@
-# 🌿 Green Computing : Efficacité Énergétique & Compression avec Perte
+# Green Computing: Efficacité énergétique et compression avec perte
 
-**Auteur :** Salma BENSMAIL  
-**Contexte :** Master 2 CHPS - Module Green Computing (Université de Perpignan)  
-**Encadrant :** M. Matthieu MARTEL
+Ce projet étudie l’impact de la compression avec perte sur la consommation énergétique de solveurs numériques utilisés en calcul haute performance. L’objectif est d’évaluer si le coût de calcul introduit par la compression peut être compensé par la réduction des transferts mémoire.
 
-📄 **[Lire le rapport complet du projet (PDF)](./Rapport_Green_Computing_Salma_BENSMAIL-2.pdf)**
+## Contexte
 
-## 📖 Vue d'ensemble
-Le Calcul Haute Performance (HPC) fait face à un défi critique : la consommation énergétique. Ce projet étudie le compromis entre **Précision Numérique** et **Efficacité Énergétique** en intégrant des algorithmes de compression avec perte (**ZFP**, **SZ3**) dans des solveurs d'algèbre linéaire standards (Gauss, Cholesky).
+Dans les applications HPC, la bande passante mémoire et la consommation énergétique sont deux contraintes importantes. Ce travail s’intéresse à l’utilisation de techniques de compression avec perte dans des algorithmes de calcul scientifique afin d’analyser le compromis entre précision, performance et énergie.
 
-L'objectif est de déterminer si le surcoût de calcul (*overhead*) induit par la compression est compensé par la réduction de l'utilisation de la bande passante mémoire.
+## Objectif
 
-## 📂 Structure du dépôt
-- **`src/`** : Code source des solveurs (Gauss, Cholesky, Matmul) et wrappers de compression.
-- **`include/`** : Fichiers d'en-tête pour l'intégration de ZFP/SZ3.
-- **`scripts/`** : Scripts d'automatisation (Bash pour PowerJoular, Python pour l'analyse).
-- **`results/`** : Logs de consommation énergétique (CSV) et courbes de performance.
+Le projet vise à comparer plusieurs approches de compression appliquées à des solveurs standards d’algèbre linéaire dense, en particulier pour mesurer leur influence sur :
 
-## 🛠️ Stack Technique & Méthodologie
-- **Algorithmes** : Multiplication Matricielle, Élimination de Gauss, Décomposition de Cholesky.
-- **Compression** : 
-  - **ZFP** (Mode précision fixe).
-  - **SZ3** (Borné par l'erreur).
-- **Monitoring** : **PowerJoular** (Mesure énergétique basée sur RAPL).
-- **Jeux de données** : **SDRBench** (Scientific Data Reduction Benchmark).
+- le temps d’exécution ;
+- le coût énergétique ;
+- la stabilité numérique ;
+- l’intérêt réel de la compression selon la taille des données.
 
-## 🚀 Résultats Clés & Performance
-Les tests ont été effectués sur des matrices de taille $N=64$ à $N=512$.
+## Méthodologie
 
-| Algorithme | Compression | Impact Énergétique | Observation |
-|------------|:-----------:|:------------------:|-------------|
-| **Plain**  | Aucune      | Référence (1.0x)   | Plus efficace pour $N < 512$ (Memory-bound) |
-| **ZFP**    | Fixed-Acc   | Overhead CPU élevé | Meilleure stabilité numérique que SZ3 sur Cholesky |
-| **SZ3**    | Error-Bound | Overhead CPU élevé | Taux de compression élevés mais coût énergétique important |
+L’étude repose sur des solveurs classiques de calcul matriciel et sur l’intégration de schémas de compression avec perte dans les flux de données manipulés pendant l’exécution.
 
-### 📌 Conclusion du rapport
-Pour ces tailles de matrices, le coût de calcul de la compression (*overhead*) dépasse souvent le gain énergétique obtenu par la réduction des transferts mémoire. L'approche devient pertinente pour des volumes de données massifs où la bande passante est le goulot d'étranglement principal.
+### Algorithmes étudiés
 
----
-*Projet réalisé dans le cadre du cursus Master 2 CHPS (2025).*
+- multiplication matricielle ;
+- élimination de Gauss ;
+- décomposition de Cholesky.
 
+### Méthodes de compression
+
+- **ZFP** : compression à précision fixe ;
+- **SZ3** : compression bornée par l’erreur.
+
+### Outils utilisés
+
+- **C / C++** pour les solveurs ;
+- **Python** pour l’analyse ;
+- **PowerJoular** pour les mesures énergétiques ;
+- **SDRBench** comme jeu de données de référence.
+
+## Structure du dépôt
+
+- `src/` : code source des solveurs et wrappers de compression ;
+- `include/` : fichiers d’en-tête ;
+- `scripts/` : scripts d’automatisation et d’analyse ;
+- `results/` : mesures de consommation, sorties CSV et courbes de performance ;
+- `README.md` : présentation du projet ;
+- `Rapport Green Computing_*.pdf` : rapport complet.
+
+## Résultats principaux
+
+Les tests ont été réalisés sur des matrices de taille modérée. Les observations principales sont les suivantes :
+
+- sans compression, les solveurs restent plus efficaces pour les petites tailles de matrices ;
+- ZFP apporte une meilleure stabilité numérique que SZ3 dans certains cas ;
+- SZ3 permet des taux de compression élevés, mais avec un surcoût énergétique important ;
+- pour les tailles testées, le coût de la compression dépasse souvent le gain obtenu sur les transferts mémoire.
+
+## Conclusion
+
+La compression avec perte n’est pas toujours avantageuse dans ce contexte. Pour les tailles de matrices considérées, l’overhead lié à la compression reste important. L’approche devient plus pertinente lorsque les volumes de données augmentent et que la bande passante mémoire devient le principal facteur limitant.
+
+## Auteur
+
+**Salma Bensmail**  
+Master 2 CHPS — Calcul Haute Performance & Simulation
