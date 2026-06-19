@@ -37,6 +37,18 @@ L’étude repose sur des solveurs classiques de calcul matriciel et sur l’int
 - **PowerJoular** pour les mesures énergétiques ;
 - **SDRBench** comme jeu de données de référence.
 
+## Résultats principaux
+
+Les tests ont été réalisés sur des matrices de taille modérée. Le tableau ci-dessous résume les observations principales.
+
+| Algorithme | Compression | Impact énergétique | Observation |
+|---|---|---:|---|
+| Plain | Aucune | Référence (1.0x) | Plus efficace pour \(N \leq 512\) (memory-bound). |
+| ZFP | Fixed-Acc | Overhead CPU élevé | Meilleure stabilité numérique que SZ3 sur Cholesky. |
+| SZ3 | Error-Bound | Overhead CPU élevé | Taux de compression élevés mais coût énergétique important. |
+
+Ces résultats montrent que, pour les tailles testées, le coût de la compression dépasse souvent le gain obtenu sur les transferts mémoire. La compression devient surtout intéressante lorsque les volumes de données augmentent et que la bande passante mémoire est le principal goulot d’étranglement.
+
 ## Structure du dépôt
 
 - `src/` : code source des solveurs et wrappers de compression ;
@@ -46,20 +58,12 @@ L’étude repose sur des solveurs classiques de calcul matriciel et sur l’int
 - `README.md` : présentation du projet ;
 - `Rapport Green Computing_*.pdf` : rapport complet.
 
-## Résultats principaux
-
-Les tests ont été réalisés sur des matrices de taille modérée. Les observations principales sont les suivantes :
-
-- sans compression, les solveurs restent plus efficaces pour les petites tailles de matrices ;
-- ZFP apporte une meilleure stabilité numérique que SZ3 dans certains cas ;
-- SZ3 permet des taux de compression élevés, mais avec un surcoût énergétique important ;
-- pour les tailles testées, le coût de la compression dépasse souvent le gain obtenu sur les transferts mémoire.
-
 ## Conclusion
 
-La compression avec perte n’est pas toujours avantageuse dans ce contexte. Pour les tailles de matrices considérées, l’overhead lié à la compression reste important. L’approche devient plus pertinente lorsque les volumes de données augmentent et que la bande passante mémoire devient le principal facteur limitant.
+La compression avec perte n’est pas toujours avantageuse dans ce contexte. Pour les tailles de matrices considérées, l’overhead lié à la compression reste important. L’approche devient plus pertinente lorsque les données à traiter augmentent et que la bande passante mémoire devient limitante.
 
 ## Auteur
 
 **Salma Bensmail**  
 Master 2 CHPS — Calcul Haute Performance & Simulation
+
